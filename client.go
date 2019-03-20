@@ -53,12 +53,14 @@ func New(uid string, options ...Option) *Client {
 		uid:        uid,
 		httpClient: &http.Client{},
 	}
-
-	for _, opt := range options {
-		opt(s)
-	}
-
+	s.AddOptions(options...)
 	return s
+}
+
+func (c *Client) AddOptions(options ...Option) {
+	for _, opt := range options {
+		opt(c)
+	}
 }
 
 func (c *Client) build(method, url, token string, payload io.Reader) (*http.Request, error) {
