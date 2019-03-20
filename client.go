@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-const (
+var (
 	userAgent           = "alert-sdk:v0.0.1"
 	mimeApplicationJson = "application/json"
 	baseUrl             = "http://localhost:8080"
@@ -37,6 +37,10 @@ type (
 		Error     *ErrorResponse         `json:"error,omitempty"`
 	}
 )
+
+func SetBaseUrl(url string) {
+	baseUrl = url
+}
 
 func OptionHTTPClient(client httpClient) func(*Client) {
 	return func(c *Client) {
