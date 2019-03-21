@@ -15,6 +15,6 @@ type (
 )
 
 func (c *Client) SingleSMS(ctx context.Context, req SingleSmsRequest) (*Response, error) {
-	url := fmt.Sprintf("%s/sms/single", baseUrl)
+	url := fmt.Sprintf("%s/sms/single", c.url)
 	return c.walk(http.MethodPost, url, c.token, req)
 }
