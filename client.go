@@ -5,15 +5,15 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
 	"io"
 	"net/http"
+
+	"github.com/pkg/errors"
 )
 
-var (
+const (
 	userAgent           = "alert-sdk:v0.0.1"
 	mimeApplicationJson = "application/json"
-	baseUrl             = "http://localhost:8080"
 )
 
 type (
@@ -22,8 +22,8 @@ type (
 	}
 	Option func(*Client)
 	Client struct {
-		uid, token string
-		httpClient httpClient
+		uid, token, url string
+		httpClient      httpClient
 	}
 	ErrorResponse struct {
 		Code    string            `json:"code"`
@@ -38,29 +38,24 @@ type (
 	}
 )
 
-func SetBaseUrl(url string) {
-	baseUrl = url
-}
-
 func OptionHTTPClient(client httpClient) func(*Client) {
 	return func(c *Client) {
 		c.httpClient = client
 	}
 }
 
-func New(uid string, options ...Option) *Client {
+func New(uid, url string, options ...Option) *Client {
 	s := &Client{
 		uid:        uid,
+		url:        url,
 		httpClient: &http.Client{},
 	}
-	s.AddOptions(options...)
-	return s
-}
 
-func (c *Client) AddOptions(options ...Option) {
 	for _, opt := range options {
-		opt(c)
+		opt(s)
 	}
+
+	return s
 }
 
 func (c *Client) build(method, url, token string, payload io.Reader) (*http.Request, error) {
