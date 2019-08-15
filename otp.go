@@ -25,11 +25,11 @@ type (
 )
 
 func (c *Client) OtpGenerate(ctx context.Context, req OTPGenerateRequest) (*Response, error) {
-	url := fmt.Sprintf("%s/otp/generate", baseUrl)
+	url := fmt.Sprintf("%s/otp/generate", c.url)
 	return c.walk(http.MethodPost, url, c.token, req)
 }
 
 func (c *Client) OtpValidate(ctx context.Context, req OTPValidateRequest) (*Response, error) {
-	url := fmt.Sprintf("%s/otp/verify", baseUrl)
+	url := fmt.Sprintf("%s/otp/verify", c.url)
 	return c.walk(http.MethodPost, url, c.token, req)
 }
