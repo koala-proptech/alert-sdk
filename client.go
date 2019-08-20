@@ -82,7 +82,7 @@ func (c *Client) request(r *http.Request) (*Response, error) {
 	}()
 
 	if resp.StatusCode == http.StatusForbidden || resp.StatusCode == http.StatusUnauthorized {
-		return &Response{Status: resp.StatusCode}, errors.New(http.StatusText(resp.StatusCode))
+		return &Response{Status: resp.StatusCode}, nil
 	}
 
 	var rs Response
