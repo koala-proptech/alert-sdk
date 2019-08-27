@@ -12,7 +12,6 @@ type (
 		To                 []string    `json:"to"`
 		Subject            string      `json:"subject"`
 		Body               interface{} `json:"body"`
-		Text               string      `json:"text"`
 		AttachmentURL      string      `json:"attachment_url"`
 		AttachmentFileName string      `json:"attachment_filename"`
 	}
