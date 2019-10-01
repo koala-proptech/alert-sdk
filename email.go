@@ -22,6 +22,11 @@ func (c *Client) VerificationEmail(ctx context.Context, req EmailRequest) (*Resp
 	return c.walk(http.MethodPost, url, c.token, req)
 }
 
+func (c *Client) SendEmail(ctx context.Context, req EmailRequest) (*Response, error) {
+	url := fmt.Sprintf("%s/email", c.url)
+	return c.walk(http.MethodPost, url, c.token, req)
+}
+
 func (c *Client) WithAttachment(ctx context.Context, req EmailRequest) (*Response, error) {
 	url := fmt.Sprintf("%s/email/with-attachment", c.url)
 	return c.walk(http.MethodPost, url, c.token, req)
