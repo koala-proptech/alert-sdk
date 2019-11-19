@@ -11,6 +11,9 @@ type (
 		RegistrationIDS []string `json:"registration_ids"`
 		Title           string   `json:"title"`
 		Message         string   `json:"message"`
+		EventType       int      `json:"event_type"`
+		InstanceID      string   `json:"instance_id"`
+		Id              string   `json:"id"`
 	}
 )
 
