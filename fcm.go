@@ -14,7 +14,6 @@ type (
 		Type            int32    `json:"type"`
 		InstanceID      string   `json:"instance_id"`
 		Id              string   `json:"id"`
-		NotificationID  string   `json:"notification_id"`
 	}
 )
 
