@@ -93,18 +93,18 @@ func (c *Client) request(r *http.Request) (*Response, error) {
 	return &rs, nil
 }
 
-func (c *Client) walk(method, url, token string, payload interface{}) (resp *Response, err error) {
+func (c *Client) walk(ctx context.Context, method, url, token string, payload interface{}) (resp *Response, err error) {
 	// first request - exchange token before proceed
 	if len(c.token) == 0 {
 		_, err = c.Token(context.Background())
 		if err != nil {
 			return
 		}
-		return c.talk(method, url, c.token, payload)
+		return c.talk(ctx, method, url, c.token, payload)
 	}
 
 	// token intact, lets attempt to process
-	resp, err = c.talk(method, url, token, payload)
+	resp, err = c.talk(ctx, method, url, token, payload)
 	if err != nil {
 		return
 	}
@@ -112,12 +112,12 @@ func (c *Client) walk(method, url, token string, payload interface{}) (resp *Res
 	// ouch! probably expired, we need to refresh
 	if http.StatusUnauthorized == resp.Status {
 		c.token = ""
-		return c.walk(method, url, token, payload)
+		return c.walk(ctx, method, url, token, payload)
 	}
 	return
 }
 
-func (c *Client) talk(method, url, token string, payload interface{}) (*Response, error) {
+func (c *Client) talk(ctx context.Context, method, url, token string, payload interface{}) (*Response, error) {
 	var ir io.Reader
 	if nil != payload {
 		b, err := json.Marshal(payload)
@@ -130,5 +130,5 @@ func (c *Client) talk(method, url, token string, payload interface{}) (*Response
 	if err != nil {
 		return nil, err
 	}
-	return c.request(r)
+	return c.request(r.WithContext(ctx))
 }

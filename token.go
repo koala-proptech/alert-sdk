@@ -9,7 +9,7 @@ import (
 
 func (c *Client) Token(ctx context.Context) (r *Response, err error) {
 	url := fmt.Sprintf("%s/token", c.url)
-	r, err = c.talk(http.MethodGet, url, c.uid, nil)
+	r, err = c.talk(ctx, http.MethodGet, url, c.uid, nil)
 	if err != nil {
 		return
 	}

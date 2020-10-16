@@ -20,5 +20,5 @@ type (
 
 func (c *Client) MultipleDevice(ctx context.Context, req MultipleDeviceRequest) (*Response, error) {
 	url := fmt.Sprintf("%s/push-notif/send", c.url)
-	return c.walk(http.MethodPost, url, c.token, req)
+	return c.walk(ctx, http.MethodPost, url, c.token, req)
 }
