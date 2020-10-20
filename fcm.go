@@ -15,6 +15,7 @@ type (
 		InstanceID      string   `json:"instance_id"`
 		Id              string   `json:"id"`
 		ClickAction     string   `json:"click_action"`
+		URL             string   `json:"url"`
 	}
 )
 
