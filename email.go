@@ -41,3 +41,8 @@ func (c *Client) LoanSubmissionCustomer(ctx context.Context, req EmailRequest) (
 	url := fmt.Sprintf("%s/email/loan/customer", c.url)
 	return c.walk(ctx, http.MethodPost, url, c.token, req)
 }
+
+func (c *Client) WelcomeEmail(ctx context.Context, req EmailRequest) (*Response, error) {
+	url := fmt.Sprintf("%s/email/welcome", c.url)
+	return c.walk(ctx, http.MethodPost, url, c.token, req)
+}
