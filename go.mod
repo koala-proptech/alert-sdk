@@ -1,4 +1,4 @@
-module github.com/ndv6/alert-sdk
+module github.com/koala-proptech/alert-sdk
 
 go 1.13
 
