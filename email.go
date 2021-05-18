@@ -6,14 +6,20 @@ import (
 	"net/http"
 )
 
+type Attachment struct {
+	AttachmentURL      string `json:"attachment_url"`
+	AttachmentFileName string `json:"attachment_filename"`
+}
+
 type (
 	EmailRequest struct {
-		From               string      `json:"from"`
-		To                 []string    `json:"to"`
-		Subject            string      `json:"subject"`
-		Body               interface{} `json:"body"`
-		AttachmentURL      string      `json:"attachment_url"`
-		AttachmentFileName string      `json:"attachment_filename"`
+		From               string       `json:"from"`
+		To                 []string     `json:"to"`
+		Subject            string       `json:"subject"`
+		Body               interface{}  `json:"body"`
+		AttachmentURL      string       `json:"attachment_url"`
+		AttachmentFileName string       `json:"attachment_filename"`
+		Attachments        []Attachment `json:"attachments"`
 	}
 )
 
